@@ -1,0 +1,17 @@
+.outer-box {
+  border-color: black;
+  color: red;
+
+  .header {
+    text-align: center;
+
+    .title{
+      color:rgb(18, 110, 75);
+      font-size: 40px;
+      
+    }
+  }
+}
+.time {
+  color:green;
+}

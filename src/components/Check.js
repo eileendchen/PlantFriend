@@ -1,8 +1,8 @@
-import React, { useEffect, useState, Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import firebase from './utils/firebase';
-import "firebase/auth";
-import Signup from "./components/Signup"
+import { useForm } from 'react-hook-form';
+import Checkbox from './components/checkbox'
 
 
 const PlantDropdown = () => {
@@ -120,68 +120,39 @@ const MyGarden = () => {
  
 const clicked = () => {
   console.log("clicked")
-}
+} 
 
-const MakeButton = () => {
-
+const makeButton = () => {
   return(
-    <form>
-      <div>
-        <label>
-          <input type = "radio" name = "question" value = "yes" checked = {true}/>
-          Yes
-        </label>
-      </div>
-      
-      <div>
-        <label>
-          <input type = "radio" name = "question" value = "no" checked = {true}/>
-          No
-        </label>
-      </div>   
-        
-      <div>
-        <button type = "submit">
-          Save
-        </button>
-      </div>
-      
-    </form> 
-    
+    <body>   
+      <form>
+        <input type = "radio" name="question" value ="yes" onclick = "clicked()"/>Yes
+        <input type = "radio" name="question" value ="no" />No
+      </form>
+    </body>
   );
 }
 
-console.log("no");
 const App = () => {
+
   return (
-    <div>
-      <div>
-        <div id = "loader">
-          Loading...
-        </div>
+    <div className="outer-box">
+      <header className="header">
+        <p className="title">PlantFriend</p>       
+      </header>
+
+      <PlantDropdown />
+      <div className="garden">
+        <MyGarden/>
       </div>
-      <div className="outer-box">
-        <header className="header">
-          <p className="title">PlantFriend</p>       
-        </header>
-
-        <PlantDropdown />
-        <div className="garden">
-          <MyGarden/>
-        </div>
-        
-        <div>
-          <Signup/>
-        </div>
-
-        <div>
-          <MakeButton/>
-        </div>
+      <div>
+        <Checkbox/>
+      </div>
+      <div>
+        <makeButton/>
       </div>
     </div>
     
-    
-   
   );
 };
 
