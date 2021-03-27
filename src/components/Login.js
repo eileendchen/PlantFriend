@@ -3,35 +3,30 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../components/contexts/AuthContext";
 
 
-const Signup = (login) => {
+const Login = (login) => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const passwordConfirmationRef = useRef();
   const { signup, currentUser } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false)
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
-      return setError('Passwords do not match')
-    }
-
     try {
-      setError('');
-      setLoading(true);
+      setError('')
+      setLoading(true)
       await signup(emailRef.current.value, passwordRef.current.value);
     } catch {
-      setError('Failed to create an account');
+      setError('Failed to create an account')
     }
-    setLoading(false);
+    setLoading(false)
   }
 
   return (
     <>
       <Card>
         <Card.Body>
-          <h2 className="test-center mb-4">Sign Up</h2>
+          <h2 className="test-center mb-4">Log In</h2>
           {currentUser && currentUser.email}
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
@@ -43,23 +38,19 @@ const Signup = (login) => {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control
-                type="password"
-                ref={passwordConfirmationRef}
-                required
-              />
-            </Form.Group>
+           
 
             <Button disabled={loading} className="w-50" type="submit">
-              Sign Up
+              Log In
             </Button>
           </Form>
         </Card.Body>
       </Card>
+      <div className="w-100 text-center mt-2">
+        Already have an account? Login
+      </div>
     </>
   );
 };
 
-export default Signup;
+export default Login;

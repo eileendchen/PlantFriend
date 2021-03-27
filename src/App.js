@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import './App.scss';
+import React, { useEffect, useState } from "react";
+import "./App.scss";
 
-import firebase from './utils/firebase';
+import firebase from "./utils/firebase";
 import "firebase/auth";
 import "firebase/database";
 
-import { Container } from 'react-bootstrap';
-import Signup from "./components/Signup"
-import { AuthProvider } from './components/contexts/AuthContext';
+import { Container } from "react-bootstrap";
+import Signup from "./components/Signup";
+import { AuthProvider } from "./components/contexts/AuthContext";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
 
-const PlantDropdown = () => {
+const PlantDropdown = ({uid}) => {
   let [vegetable, setVegetable] = useState("tomato");
-  const ref = firebase.database().ref("Vegetable");
+  const ref = firebase.database().ref(uid);
 
-  const handleSubmit = (event) => {    
+  const handleSubmit = (event) => {
     const push = (vegData) => {
       ref.push(vegData);
       console.log("Pushed successfully");
       event.preventDefault();
-    }
+    };
 
     if (vegetable === "lettuce") {
       const vegData = {
@@ -27,30 +30,32 @@ const PlantDropdown = () => {
         season: "spring",
         waterdescription: "Lettuce need a constant, moderate supply of water.",
         numwater: 2,
-        tips: "Start germinating lettuce seeds a few weeks before the last frost. The seedlings should be kept under direct sunlight, and they can be transplanted in spring. For hot weather, a thin layer of mulch can help retain water.",
-      }
+        tips:
+          "Start germinating lettuce seeds a few weeks before the last frost. The seedlings should be kept under direct sunlight, and they can be transplanted in spring. For hot weather, a thin layer of mulch can help retain water.",
+      };
       push(vegData);
-    }
-
-    else if (vegetable === "tomato") {
+    } else if (vegetable === "tomato") {
       const vegData = {
         name: vegetable,
         sciname: "Solanum lycopersicum",
         season: "late spring to early summer",
-        waterdescription: "Tomatoes should be watered slowly and deeply. They also need to be watered regularly, and it is the most efficient to water straight to the roots.",
+        waterdescription:
+          "Tomatoes should be watered slowly and deeply. They also need to be watered regularly, and it is the most efficient to water straight to the roots.",
         numwater: 7,
-        tips: "Tomatoes run on warmth, so they should be planted in the late spring and early summer. They need at least 6 to 8 hours of sun every day, and a stake, trellis, or cage can help keep the plant off the ground.",
-      }
+        tips:
+          "Tomatoes run on warmth, so they should be planted in the late spring and early summer. They need at least 6 to 8 hours of sun every day, and a stake, trellis, or cage can help keep the plant off the ground.",
+      };
       push(vegData);
     }
-  }
+  };
 
   const handleChange = (event) => {
     setVegetable(event.target.value);
-  }
+  };
   return (
     <form onSubmit={handleSubmit}>
-      <label>Pick your vegetable:  
+      <label>
+        Pick your vegetable:
         <select value={vegetable} onChange={handleChange}>
           <option value="tomato">Tomato</option>
           <option value="squash">Squash</option>
@@ -62,17 +67,17 @@ const PlantDropdown = () => {
       </label>
       <input type="submit" value="Submit" />
     </form>
-  )
-}
+  );
+};
 
-const MyGarden = () => {
+const MyGarden = ({uid}) => {
   const [garden, setGarden] = useState([]);
-  const ref = firebase.database().ref("Vegetable")
+  const ref = firebase.database().ref(uid);
 
   useEffect(() => {
-    ref.on('value', (snapshot) => {
+    ref.on("value", (snapshot) => {
       let snap = snapshot.val();
-  
+
       if (snap === null) {
         snap = 2;
         console.log("null value");
@@ -82,7 +87,7 @@ const MyGarden = () => {
         console.log(arraysnap);
       }
     });
-  }, [])
+  }, []);
 
   const printVegetables = garden.map((vegetable, index) => {
     return (
@@ -92,8 +97,8 @@ const MyGarden = () => {
         <p>{vegetable.numwater}</p>
         <p>{vegetable.tips}</p>
       </div>
-    )
-  })
+    );
+  });
 
   return (
     <div className="showGarden">
@@ -101,8 +106,8 @@ const MyGarden = () => {
       {printVegetables}
     </div>
   );
-}
- 
+};
+
 const MakeButton = () => {
   const [points, setPoints] = useState(0);
   const [wateredPlants, setWateredPlants] = useState(false);
@@ -110,11 +115,11 @@ const MakeButton = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (wateredPlants) {
-      setPoints(points + 1)
+      setPoints(points + 1);
     }
-  }
+  };
 
-  return(
+  return (
     <form onSubmit={handleSubmit}>
       <div>
         <label>
@@ -123,11 +128,13 @@ const MakeButton = () => {
             name="question"
             value="yes"
             checked={wateredPlants}
-            onChange={() => {setWateredPlants(true)}}
+            onChange={() => {
+              setWateredPlants(true);
+            }}
           />
           Yes
         </label>
-      </div>  
+      </div>
       <div>
         <label>
           <input
@@ -135,45 +142,56 @@ const MakeButton = () => {
             name="question"
             value="no"
             checked={!wateredPlants}
-            onChange={() => {setWateredPlants(false)}}
+            onChange={() => {
+              setWateredPlants(false);
+            }}
           />
           No
         </label>
-      </div>   
+      </div>
       <div>
-        <button type = "submit">Save</button>
-      </div> 
-    </form>    
+        <button type="submit">Save</button>
+      </div>
+    </form>
   );
-}
+};
 
 const App = () => {
+  const user = firebase.auth().currentUser;
+
   return (
-    <div>   
+    <div>
       <div className="outer-box">
         <header className="header">
-          <p className="title">PlantFriend</p>       
+          <p className="title">PlantFriend</p>
         </header>
-        <PlantDropdown />
-        <div className="garden">
-          <MyGarden/>
-        </div>
-        <div>
-          <AuthProvider>
-            <Container className="d-flex align-items-center justify-content-center"
-            style={{ minHeight: "100vh"}}>        
-              <div className="w-100" style={{maxWidth: "400px"}}>
+        {!user && (
+          <div>
+            <Container
+              className="d-flex align-items-center justify-content-center"
+              style={{ minHeight: "100vh" }}
+            >
+              <div className="w-100" style={{ maxWidth: "400px" }}>
                 <Signup/>
-              </div>           
+              </div>
             </Container>
-          </AuthProvider>
-        </div>
+          </div>
+        )}
+        {user && 
         <div>
-          <p>Did you take care of your plants today?</p>
-          <MakeButton/>
+          <PlantDropdown uid={String(user.uid)}/>
+          <div className="garden">
+            <MyGarden uid={String(user.uid)}/>
+          </div>
+
+          <div>
+            <p>Did you take care of your plants today?</p>
+            <MakeButton />
+          </div>
         </div>
+      }
       </div>
-    </div>  
+    </div>
   );
 };
 
