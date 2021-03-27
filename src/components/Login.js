@@ -3,10 +3,10 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../components/contexts/AuthContext";
 
 
-const Login = (login) => {
+const Login = (signup) => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { signup, currentUser } = useAuth();
+  const { login, currentUser } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false)
 
@@ -15,9 +15,10 @@ const Login = (login) => {
     try {
       setError('')
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await login(emailRef.current.value, passwordRef.current.value)
+      window.location.reload();
     } catch {
-      setError('Failed to create an account')
+      setError('Failed to log in')
     }
     setLoading(false)
   }
@@ -47,7 +48,7 @@ const Login = (login) => {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Already have an account? Login
+        
       </div>
     </>
   );

@@ -11,6 +11,7 @@ import { AuthProvider } from "./components/contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
+import Logout from "./components/Logout"
 
 const PlantDropdown = ({uid}) => {
   let [vegetable, setVegetable] = useState("tomato");
@@ -173,6 +174,7 @@ const App = () => {
             >
               <div className="w-100" style={{ maxWidth: "400px" }}>
                 <Signup/>
+                <Login/>
               </div>
             </Container>
           </div>
@@ -187,6 +189,7 @@ const App = () => {
           <div>
             <p>Did you take care of your plants today?</p>
             <MakeButton />
+            <Logout/>
           </div>
         </div>
       }
