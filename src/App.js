@@ -12,7 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Logout from "./components/Logout"
-
+import { useFieldArray } from "react-hook-form";
 
 const PlantDropdown = ({uid}) => {
   let [vegetable, setVegetable] = useState("tomato");
@@ -51,6 +51,7 @@ const PlantDropdown = ({uid}) => {
     }
   };
 
+  
   const handleChange = (event) => {
     setVegetable(event.target.value);
   };
@@ -72,20 +73,17 @@ const PlantDropdown = ({uid}) => {
   );
 };
 
-const MyGarden = ({uid}) => {
+// Garden gets garden data 
+const Garden = ({uid}) => {
   const [garden, setGarden] = useState([]);
   const ref = firebase.database().ref(uid);
-
+  
   useEffect(() => {
     ref.on("value", (snapshot) => {
       let snap = snapshot.val();
-      if (snap === null) {
-        snap = 2;
-        console.log("null value");
-      } else {
+      if (snap !== null) {
         const arraysnap = Object.values(snap);
         setGarden(arraysnap);
-        console.log(arraysnap);
       }
     });
   }, []);
@@ -110,27 +108,30 @@ const MyGarden = ({uid}) => {
   );
 };
 
-const MakeButton = ({uid}) => {
-  const [points, setPoints] = useState(0);
+const WaterPlants = ({uid, points, setPoints}) => {
   const [wateredPlants, setWateredPlants] = useState(false);
 
   const handleSubmit = (e) => {
+    const ref = firebase.database().ref(uid);
     e.preventDefault();
     if (wateredPlants) {
-      ref.on("points", (snapshot) => {
-        let pp = snapshot.val();
-        if (pp === null) {
-          ref = firebase.database().ref(uid);
+      ref.once("value").then(function(snapshot){
+        if (!snapshot.child("points").exists()) {
+          setPoints(10);
+          ref.push({
+            "points": 10
+          });
         } else {
-          const arraysnap = Object.values(snap);
-          setGarden(arraysnap);
-          console.log(arraysnap);
+          setPoints(points+10);
+          ref.update({
+            "points": points+10
+          });
         }
-
-      // return points
-    }
-  };
-
+        
+        // return points
+      }
+    )
+  }}
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -168,41 +169,76 @@ const MakeButton = ({uid}) => {
   );
 };
 
+const PlantFriend = () => {
+  return (
+    <p>TEMP</p>
+  )
+}
+
+const ProgressBar = ({points}) => {
+  let i = 0
+  const update = () => {
+    if (i===0) {
+      let elem = document.getElementById("progress-bar");
+      let width = 1;
+      let id = setInterval(frame, 10);
+
+      const frame = () => {
+        if (width>= 100) {
+          clearInterval(id);
+          i = 0;
+        } else {
+          width++;
+          elem.style.width = width + "%"
+          elem.innerHTML = width + "%";
+        }
+      }
+    }
+  }
+
+  return (
+    <div className = "progress-status">
+      <div className = "progress-bar"></div>
+      <button onclick = "update()">Click Me</button>
+    </div>
+  )
+}
+
 const App = () => {
+  const [points, setPoints] = useState(0);
   const user = firebase.auth().currentUser;
 
   return (
     <div>
       <div className="outer-box">
-        <header className="header">
-          <p className="title">PlantFriend</p>
-        </header>
+        <div className='header-bar'>
+          <div className="placeholder"/>
+          <header className="header">
+            <p className="title">PlantFriend</p>
+          </header>
+          {!user && <Login className="log"/>}
+          {user && <Logout className="log"/>}
+        </div>
         {!user && (
-          <div>
-            <Container
-              className="d-flex align-items-center justify-content-center"
-              style={{ minHeight: "100vh" }}
-            >
-              <div className="w-100" style={{ maxWidth: "400px" }}>
-                <Signup/>
-                <Login/>
-              </div>
-            </Container>
+          <div className='signup-wrapper'>
+            <div>
+              <Signup />
+            </div>
           </div>
         )}
         {user && 
-        <div>
-          <PlantDropdown uid={String(user.uid)}/>
-          <div className="garden">
-            <MyGarden uid={String(user.uid)}/>
+          <div className='body'>
+            <div className='plant-friend-wrapper'>
+              <p>PLANTFRIEND</p>
+              <PlantFriend />
+              <ProgressBar points={points}/>
+            </div>
+            <div className='garden-wrapper'>
+              <p>GARDEN</p>
+              <Garden uid={String(user.uid)} />
+              <WaterPlants uid={String(user.uid)} points={points} setPoints={setPoints} />
+            </div>
           </div>
-
-          <div>
-            <p>Did you take care of your plants today?</p>
-            <MakeButton />
-            <Logout/>
-          </div>
-        </div>
       }
       </div>
     </div>

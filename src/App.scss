@@ -1,17 +1,41 @@
 .outer-box {
-  border-color: black;
-  color: red;
+  .header-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 
-  .header {
-    text-align: center;
+    .title {
+      color: green;
+    }
+  }
 
-    .title{
-      color:rgb(18, 110, 75);
-      font-size: 40px;
-      
+  .body {
+    display: flex;
+    flex-direction: row;
+
+    .plant-friend-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
+    }
+
+    .garden-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
     }
   }
 }
-.time {
-  color:green;
+
+.progress-status{
+  width:50%
+  
+}
+
+.progress-bar{
+  width: 20%;
+  height: 35 px;
 }
