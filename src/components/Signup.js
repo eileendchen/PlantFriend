@@ -1,15 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../components/contexts/AuthContext";
+import '../styles/Auth.scss';
 
-
-const Signup = (login) => {
+const Signup = ({hide}) => {
+  const [className, setClassName] = useState('')
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
   const { signup, currentUser } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (hide) {
+      setClassName("hide");
+    } else {
+      setClassName("log");
+    }
+  }, [])
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,9 +39,10 @@ const Signup = (login) => {
 
   return (
     <>
-      <Card>
+    <div className={className}>
+      <Card className='signup'>
         <Card.Body>
-          <h2 className="test-center mb-4">Sign Up</h2>
+          <h1 className="test-center mb-4">Sign Up</h1>
           {currentUser && currentUser.email}
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
@@ -59,6 +69,7 @@ const Signup = (login) => {
           </Form>
         </Card.Body>
       </Card>
+    </div>
     </>
   );
 };

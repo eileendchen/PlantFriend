@@ -1,31 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+body {
+  font-family: 'Rubik';
+}
+
+$main-color: rgb(248, 215, 153);
+
 .outer-box {
+  padding-bottom: 2em;
+
   .header-bar {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 
     .title {
-      color: green;
+      font-size: 3em;
+      font-weight: 800;
+      background:$main-color;
+      padding: 0.5em 3em 0.5em 3em;
+      border-radius: 24px;
     }
   }
 
-  .body {
+  .logout-button {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5em;
 
-    .plant-friend-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50%;
+    button {
+      padding-right: 5em;
+      padding-left: 5em;
+      font-size: 16px;
+      font-family: 'Rubik';
     }
+  }
 
-    .garden-wrapper {
+  .signup-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .body-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 50%;
+  
+      .plant-friend-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 8em 0 8em;
+
+        .progress-status {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .title {
+          margin-left: 1em;
+          font-weight: 600;
+          font-size: 28px;
+        }
+
+        .plant {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          #pot {
+            z-index: 1;
+            margin-top: -6px;
+          }
+        }
+
+        .buttons {
+          p {
+            margin-top: 2em;
+            margin-left: 0.25em;
+          }
+          .radio-buttons {
+            display: flex;
+            flex-direction: row;
+            margin-left: 2em;
+  
+            input {
+              margin-left: 1em;
+            }
+  
+            button {
+              margin-left: 1em;
+            }
+          }
+        }
+      }
+  
+      .garden-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2em;
+
+        .garden-header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          padding-left: 5em;
+          padding-right: 5em;
+
+          .add-veggie {
+            select {
+              margin-left: 1em;
+            }
+
+            input {
+              margin-left: 1em;
+            }
+          }
+        }
+
+        .veggie-garden {
+          display: flex;
+          flex-direction: row;
+
+          .vegetable {
+            width: 300px;
+            font-size: 14px;
+            border: 2px solid $main-color;
+            border-radius: 24px;
+            background: $main-color;
+            margin-right: 2em;
+            margin-left: 2em;
+            padding: 0 2em 1em 2em;
+            align-items: stretch;
+
+            .image {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+
+            .start {
+              font-weight: 600;
+            }
+          }
+        }
+      }
     }
   }
 }

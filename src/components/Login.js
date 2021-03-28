@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../components/contexts/AuthContext";
-
+import '../styles/Auth.scss';
 
 const Login = (signup) => {
   const emailRef = useRef();
@@ -25,7 +25,7 @@ const Login = (signup) => {
 
   return (
     <>
-      <Card>
+      <Card className='loginsignup'>
         <Card.Body>
           <h2 className="test-center mb-4">Log In</h2>
           {currentUser && currentUser.email}
@@ -41,7 +41,7 @@ const Login = (signup) => {
             </Form.Group>
            
 
-            <Button disabled={loading} className="w-50" type="submit">
+            <Button className='log' disabled={loading} className="w-50" type="submit">
               Log In
             </Button>
           </Form>

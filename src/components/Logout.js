@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../components/contexts/AuthContext";
+import '../styles/Auth.scss'
 
 
 const Logout = (signup) => {
@@ -20,11 +21,9 @@ const Logout = (signup) => {
     <>
       <Card>
         <Card.Body>
-        
-          {currentUser && currentUser.email}
           {error && <Alert variant="danger">{error}</Alert>}
           
-          <Button onClick={loggingout}>
+          <Button className="log" onClick={loggingout}>
             Log Out
           </Button>
             
