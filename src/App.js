@@ -13,6 +13,7 @@ import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Logout from "./components/Logout"
 
+
 const PlantDropdown = ({uid}) => {
   let [vegetable, setVegetable] = useState("tomato");
   const ref = firebase.database().ref(uid);
@@ -78,7 +79,6 @@ const MyGarden = ({uid}) => {
   useEffect(() => {
     ref.on("value", (snapshot) => {
       let snap = snapshot.val();
-
       if (snap === null) {
         snap = 2;
         console.log("null value");
@@ -99,6 +99,7 @@ const MyGarden = ({uid}) => {
         <p>{vegetable.tips}</p>
       </div>
     );
+
   });
 
   return (
@@ -109,14 +110,24 @@ const MyGarden = ({uid}) => {
   );
 };
 
-const MakeButton = () => {
+const MakeButton = ({uid}) => {
   const [points, setPoints] = useState(0);
   const [wateredPlants, setWateredPlants] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (wateredPlants) {
-      setPoints(points + 1);
+      ref.on("points", (snapshot) => {
+        let pp = snapshot.val();
+        if (pp === null) {
+          ref = firebase.database().ref(uid);
+        } else {
+          const arraysnap = Object.values(snap);
+          setGarden(arraysnap);
+          console.log(arraysnap);
+        }
+
+      // return points
     }
   };
 
