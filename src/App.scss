@@ -132,6 +132,9 @@ $main-color: rgb(248, 215, 153);
         .veggie-garden {
           display: flex;
           flex-direction: row;
+          align-content: center;
+          justify-content: center;
+          flex-wrap: wrap;
 
           .vegetable {
             width: 300px;
@@ -141,6 +144,8 @@ $main-color: rgb(248, 215, 153);
             background: $main-color;
             margin-right: 2em;
             margin-left: 2em;
+            margin-top: 2em;
+            margin-bottom: 2em;
             padding: 0 2em 1em 2em;
             align-items: stretch;
 

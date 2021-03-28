@@ -35,7 +35,7 @@ const PlantDropdown = ({uid}) => {
         name: vegetable,
         sciname: "Lactuca sativa",
         season: "spring",
-        waterdescription: "Lettuce need a constant, moderate supply of water.",
+        waterdescription: "Lettuce need a constant, moderate supply of water. Lettuce should be watered twice a week.",
         numwater: 2,
         tips:
           "Start germinating lettuce seeds a few weeks before the last frost. The seedlings should be kept under direct sunlight, and they can be transplanted in spring. For hot weather, a thin layer of mulch can help retain water.",
@@ -47,10 +47,50 @@ const PlantDropdown = ({uid}) => {
         sciname: "Solanum lycopersicum",
         season: "late spring to early summer",
         waterdescription:
-          "Tomatoes should be watered slowly and deeply. They also need to be watered regularly, and it is the most efficient to water straight to the roots.",
+          "Tomatoes should be watered slowly and deeply. They also need to be watered regularly, and it is the most efficient to water straight to the roots. Tomatoes should be watered daily or every other day.",
         numwater: 7,
         tips:
           "Tomatoes run on warmth, so they should be planted in the late spring and early summer. They need at least 6 to 8 hours of sun every day, and a stake, trellis, or cage can help keep the plant off the ground.",
+      };
+      push(vegData);
+    } else if (vegetable === "squash") {
+      const vegData = {
+        name: vegetable,
+        sciname: "Cucurbita",
+        season: "Summer squashes should be planted after the last frost, and winter squash can be planted in the middle of the summer.",
+        waterdescription:"Squash generally need about 1-2 inches of water per week, but the amount may differ due to the weather. Aim to water your squash at the roots and to drain the plant well. Squash can be watered once a week.",
+        numwater: 1,
+        tips: "In general, squash should be planted about 3-6 feet apart in an area that gets 6 or more hours of sun a day. In addition, avoid wetting the leaves and ensure that the soil is rich and well-drained. Baby squash can be harvested once they're large enough to eat, or they can also be harvested when they reach full size. ",
+      };
+      push(vegData);
+    } else if (vegetable === "bell pepper") {
+      const vegData = {
+        name: vegetable,
+        sciname: "Capsicum annuum",
+        season: "Bell peppers should be planted after all dangers of frost have passed. Fall peppers should be planted before the first expected frost. ",
+        waterdescription: "Bell peppers need slow, deep watering to help the root system grow strong. Avoid letting bell pepper plants wilt as this will reduce the yield and the quality of the fruit. Bell peppers should be watered 2-4 times a week.",
+        numwater: 4,
+        tips: "Bell peppers should be planted about 3-4 inches deep and 1.5 feet apart from each other in a row. The rows should be at least 3 feet apart, and fertilizer can also be added 6 inches from the stem after transplanting. Bell peppers can be harvested about 8-19 weeks after transplanting, and they should be harvested as they mature to increase the yield. "
+      };
+      push(vegData);
+    } else if (vegetable === "pea") {
+      const vegData = {
+        name: vegetable,
+        sciname: "Pisum sativum",
+        season: "Peas should be planted as early as possible in the spring to increase the yield before hot weather. ",
+        waterdescription: "Peas need to be watered deeply, and the soil should never dry out completely. Waterings during the week to dampen the soil may be necessary if the weather is particularly hot to avoid letting the plants wilt. The most critical time for watering is when the plants are blossoming and producing pods, and daily waterings may be necessary to maximize the yield. ",
+        numwater: 4,
+        tips: "Peas should be planted in wide rows, and they generally do not require too much fertilizer. Mulch can be applied to maintain the moisture levels, and planting peas in raised beds can also help increase the yield as the soil warms up quicker than the surrounding ground. Peas can be harvested when the seeds produce visible ridges on the pods. Peas should be harvested frequently, and overly mature pods should be carefully removed. "
+      };
+      push(vegData);
+    } else if (vegetable === "pea") {
+      const vegData = {
+        name: vegetable,
+        sciname: "Cucumis sativus",
+        season: "Cucumbers should be planted in mid-spring as they thrive in warm, moist conditions. ",
+        waterdescription: "Cucumbers need at least one inch of water every week, so make sure to keep the soil consistently moist. A soaker hose or drip irrigation can help keep the foliage dry, and the amount of water needed will increase with temperatures. Cucumbers should be watered twice a week.",
+        numwater: 2,
+        tips: "Plant cucumbers 3-4 feet apart, and cover the soil with mulch to maintain constant temperature and moisture levels. A trellis is also highly recommended as it helps keep the cucumbers clean and provides support for the climbing tendrils. Cucumbers can be harvested when they are big enough to use, but make sure to check vines often as they can mature rapidly. Yellow bottoms indicate that the fruit is overripe, so make sure that the fruit is harvested when ready. "
       };
       push(vegData);
     }
@@ -102,6 +142,7 @@ const Vegetable = ({vegetable}) => {
         <p><span className='start'>Vegetable:</span> {vegetable.name[0].toUpperCase() + vegetable.name.slice(1)}</p>
       </div>
       <p><span className='start'>Scientific Name:</span> {vegetable.sciname}</p>
+      <p><span className='start'>Growing and Planting Season:</span> {vegetable.season}</p>
       <p><span className='start'>Watering Schedule:</span> {vegetable.waterdescription}</p>
       <p><span className='start'>Care Tips:</span> {vegetable.tips}</p>
     </div>
