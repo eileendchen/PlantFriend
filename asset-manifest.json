@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/PlantFriend/static/css/main.3dfe2d22.chunk.css",
+    "main.js": "/PlantFriend/static/js/main.fad04de6.chunk.js",
+    "main.js.map": "/PlantFriend/static/js/main.fad04de6.chunk.js.map",
+    "runtime-main.js": "/PlantFriend/static/js/runtime-main.c8a9802b.js",
+    "runtime-main.js.map": "/PlantFriend/static/js/runtime-main.c8a9802b.js.map",
+    "static/js/2.2ff69fba.chunk.js": "/PlantFriend/static/js/2.2ff69fba.chunk.js",
+    "static/js/2.2ff69fba.chunk.js.map": "/PlantFriend/static/js/2.2ff69fba.chunk.js.map",
+    "static/js/3.73a8bc61.chunk.js": "/PlantFriend/static/js/3.73a8bc61.chunk.js",
+    "static/js/3.73a8bc61.chunk.js.map": "/PlantFriend/static/js/3.73a8bc61.chunk.js.map",
+    "index.html": "/PlantFriend/index.html",
+    "static/css/main.3dfe2d22.chunk.css.map": "/PlantFriend/static/css/main.3dfe2d22.chunk.css.map",
+    "static/js/2.2ff69fba.chunk.js.LICENSE.txt": "/PlantFriend/static/js/2.2ff69fba.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c8a9802b.js",
+    "static/js/2.2ff69fba.chunk.js",
+    "static/css/main.3dfe2d22.chunk.css",
+    "static/js/main.fad04de6.chunk.js"
+  ]
+}
