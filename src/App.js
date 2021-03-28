@@ -83,7 +83,7 @@ const PlantDropdown = ({uid}) => {
         tips: "Peas should be planted in wide rows, and they generally do not require too much fertilizer. Mulch can be applied to maintain the moisture levels, and planting peas in raised beds can also help increase the yield as the soil warms up quicker than the surrounding ground. Peas can be harvested when the seeds produce visible ridges on the pods. Peas should be harvested frequently, and overly mature pods should be carefully removed. "
       };
       push(vegData);
-    } else if (vegetable === "pea") {
+    } else if (vegetable === "cucumber") {
       const vegData = {
         name: vegetable,
         sciname: "Cucumis sativus",
@@ -122,7 +122,7 @@ const Vegetable = ({vegetable}) => {
   const getImage = (name) => {
     if (name == 'tomato') {
       return <img src='tomato.png'/>
-    } else if (name == 'peas') {
+    } else if (name == 'pea') {
       return <img src='peas.png'/>
     } else if (name == 'lettuce') {
       return <img src='lettuce.png'/>
